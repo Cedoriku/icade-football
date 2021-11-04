@@ -21,5 +21,8 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\Service\ApiHandler:
+        arguments:
+            $apiHost: '%env(resolve:API_HOST)%'
+            $headerHost: '%env(resolve:HEADER_HOST)%'
+            $apiKey: '%env(resolve:API_KEY)%'

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    {% set teams, goals, fixture, venue = match.teams, match.goals, match.fixture, match.fixture.venue %}
+    <h2>{{ teams.home.name }} / {{ teams.away.name }} {{ goals.home }}-{{ goals.away }}</h2>
+    <h4>{{ fixture.date|date("d/m/Y") }} à {{ venue.city }}, {{ venue.name }}</h4>
+    <div class="container">
+        <div class="card-body match">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        {% for teamStat in match.statistics %}
+                        {% endfor %}
+                    </div>
+                    <h5 class="card-subtitle">Statistics</h5>
+                    <div class="row">
+                        {% for teamStat in match.statistics %}
+                            <div class="col">
+                                <h4 class="team-name">{{ teamStat.team.name }}</h4>
+                                {% for stat in teamStat.statistics %}
+                                    <p class="stat">{{ stat.type }} : {{ stat.value }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <h5 class="card-subtitle">Derniers matchs</h5>
+                    <div class="row">
+                        {% for team, matches in teamsFixtures %}
+                            <div class="col">
+                                <h4 class="team-name">{{ team }}</h4>
+                                {% for match in matches %}
+                                    <div class="row">
+                                        <p class="col col-8">{{ match.teams.home.name }} / {{ match.teams.away.name }}</p>
+                                        <p class="col col-4">{{ match.goals.home }} - {{  match.goals.away }}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div><!-- card-body -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
