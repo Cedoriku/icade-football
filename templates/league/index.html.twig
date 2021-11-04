@@ -8,18 +8,20 @@
         {%  for match in fixtures %}
             {% set fixture = match.fixture %}
             {% set venue = fixture.venue %}
-            {% set teams = match.teams %}
+            {% set home = match.teams.home %}
+            {% set away = match.teams.away %}
+            {% set goals = match.goals %}
         <a class="card match-container" href="{{ path('match_detail', {'id': fixture.id}) }}">
             <div class="card-body match">
                 <h6 class="card-subtitle">{{ fixture.date|date("d/m/Y") }} à {{ venue.city }}, {{ venue.name }}</h6>
                 <div class="row teams-score">
-                    <div class="col text-center team-name {{ teams.home.winner ? 'winner' }}">
-                        <p>{{ teams.home.name }}</p>
-                        <p class="score">{{ match.goals.home }}</p>
+                    <div class="col text-center team-name {{ home.winner ? 'winner' }}">
+                        <p>{{ home.name }}</p>
+                        <p class="score">{{ goals.home }}</p>
                     </div>
-                    <div class="col text-center {{ teams.away.winner ? 'winner' }}">
-                        <p>{{ teams.away.name }}</p>
-                        <p class="score">{{ match.goals.away }}</p>
+                    <div class="col text-center {{ away.winner ? 'winner' }}">
+                        <p>{{ away.name }}</p>
+                        <p class="score">{{ goals.away }}</p>
                     </div>
                 </div>
             </div>
